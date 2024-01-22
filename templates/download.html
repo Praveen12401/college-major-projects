@@ -1,0 +1,67 @@
+{% extends "base.html" %}  
+{% block title %} download {% endblock title %}   
+    <style>
+        .btn-style{
+            
+            font-size: large;
+        
+            color:rgb(243, 9, 9);
+             
+            background: #cdf1cc;
+            margin-left: 73%;
+            top: 200px;
+            position: absolute;
+
+            max-width: auto;;
+          
+
+            border: 1px solid green;
+        }
+        .inp-style{
+            color: aqua;
+            font-size: large;
+            text-rendering: none;
+            color: hsl(228, 100%, 1%);
+            height: 26px;
+            border: 1px solid aqua;
+            box-shadow: 2px 1px 2px 1px rgb(45, 162, 240);
+            position: relative;
+        }
+        .thumbnale{
+            width: 500px;
+            height: 300px;
+            
+            border: 0px solid red;
+            display: flex;
+            margin-left: 20%;
+        }
+    </style>
+
+ {% block body %}
+    <!-- form for video downloading design -->
+    <h1 style="color:rgb(228, 24, 255); margin-left: 20%;"> Enter any url of YouTube video and  download</h1>
+
+    <form action="/single_video" method="get">
+        <label style="color: rgb(62, 62, 241); font-size: 40px;">
+            Enter video url:
+        </label>
+        <input class="inp-style" type="text" size="70" name="url_of_video"  placeholder=" Enter url" required><br><br>
+         
+
+        <!-- informaation of video design here -->
+        {% if  internet %}
+        <label><h1 style="color:red;">please check internet coneection  or  </h1></label>
+        {% endif %}
+        <label style="color: rgb(240, 51, 51);font-size:60px;">title:</label> <h1>{{title}}</h1>
+        
+       {% if thumbnale %}
+       <div class="thumbnale">
+           <img class="thumbnale" src="{{thumbnale}}" alt="thumbnale"></div>
+         {% endif %}
+         
+           
+ 
+       <button class="btn-style" type="submit"> Dowload video</button>
+    </form>
+
+    {% endblock body %}
