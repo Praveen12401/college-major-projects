@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} {% endblock  %}</title>
+</head>
+{% load static %}
+<link href="{% static 'static/src/footer.css' %}"  rel="stylesheet" type="text/css" />
+<link href="{% static 'static/src/header.css' %}"  rel="stylesheet" type="text/css" />
+
+<body>
+<header>
+    <nav class="navbar">
+        <ul>
+            <li class="{% if request.path == '/' %} active {% endif %}"><a href="/">Home</a></li>
+            <li class="{% if request.path == '/about/' %} active {% endif %}"><a href="/about">About</a></li>
+            <li class="{% if request.path == '/contant/' %} active {% endif %}"><a href="/contant">Contant</a></li>
+            <li class="{% if request.path == '/download/' %} active {% endif %}"><a href="/download">download</a></li>
+            <li class="{% if request.path == '/chat-gpt' %} active {% endif %}"><a href="/chat-gpt">chat-gpt</a></li>
+            <div class="search">
+                <input type="text" name="search" id="search" placeholder="search this website">
+                <a href="/account_signip">Signup</a>
+                <a href="/account_login">Login</a>
+            </div>
+        
+        
+        </ul>
+    </nav>
+</header>
+
+
+{% block body %}
+
+
+{% endblock body %}
+
+
+
+  <!-- sticker  fixd position design  here-->
+   <!-- sticker design  here-->
+ <a href="mailto:211152@kit.ac.in">
+   <img class="sticker1" src="/static/images/gmail.png" alt="gmail" >
+</a>
+<a href="tel:+916386816303">
+   <img class="sticker2" src="/static/images/phone-call.png" alt="Phone-call" >
+  </a>
+   <!-- sticker design  here-->
+    <center>
+  <h3 style="color:rgb(16, 117, 248); background-color: rgb(130, 248, 248); height: 50px;font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;"> about my team members</h3>
+      </center>
+  <!-- section end tag  -->
+<!-- <h> footer start here</h> -->
+
+  
+    
+       
+         
+<div class="main">
+     
+      <div class="img-tag">
+          <img class="image1" src="/static/images/aman.jpg" alt="im2">
+          <h1 style="text-align: center;color:rgb(212, 0, 255);">Aman alam</h1>
+          <p  class="paragraph-text"> A full-stack developer is a developer or engineer who can build both the front end and the back end of a website. The front end (the parts of a website a user sees and interacts with) and the back end (the behind-the-scenes data storage and processing) require different skill sets.</p>
+          <img class="starimg" src="/static/images/fullstar.jpg" alt="img1" >
+       </div>
+   
+    <div class="img-tag">
+       <img class="image1" src="/static/images/Ayush.jpeg" alt="im2">
+       <h1 style="text-align: center;color:rgb(212, 0, 255);">Ayush Gupta</h1>
+       <p  class="paragraph-text"> A full-stack developer is a developer or engineer who can build both the front end and the back end of a website. The front end (the parts of a website a user sees and interacts with) and the back end (the behind-the-scenes data storage and processing) require different skill sets.</p>
+       <img class="starimg" src="/static/images/fullstar.jpg" alt="img1" >
+    </div>
+
+    <div class="img-tag">
+        <img class="image1" src="/static/images/sandeep.jpg" alt="im3">
+        <h1 style="text-align: center;color:rgb(212, 0, 255);">Sandeep Srivastva</h1>
+        <p  class="paragraph-text"> A full-stack developer is a developer or engineer who can build both the front end and the back end of a website. The front end (the parts of a website a user sees and interacts with) and the back end (the behind-the-scenes data storage and processing) require different skill sets.</p>
+        <img class="starimg" src="/static/images/fullstar.jpg" alt="img1" >
+    </div>
+    
+    <div class="img-tag">
+        <img class="image1" src="/static/images/praveen.png" alt="im3">
+        <h1 style="text-align: center;color:rgb(212, 0, 255);">Praveen yadav</h1>
+        <p  class="paragraph-text"> A full-stack developer is a developer or engineer who can build both the front end and the back end of a website. The front end (the parts of a website a user sees and interacts with) and the back end (the behind-the-scenes data storage and processing) require different skill sets.</p>
+        <img class="starimg" src="/static/images/fullstar.jpg" alt="img1" >
+    </div>  
+
+</div>
+<!-- section end here -->
+<br>
+<br>
+<!-- footer start  here-->
+<footer>
+  <center>
+    <h3 style="color:rgb(16, 117, 248); background-color: rgb(130, 248, 248); height: 50px;font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;"> footer servises provide</h3>
+    <div class="container"id="cn">
+       <h3>Subscribe To junior coders</h3>
+       <form>
+      <input type="email"id="emails"placeholder="Enter Here Emails" required>
+      <button class="submit"id="btn">
+        Subscribe
+      </button>
+    </form>
+    </div>
+    </center>
+      <div class="second-container">
+        <p class="pragraphe">
+          @  servises provide-by small community junior coder
+        </p>
+        <a href="#">
+        <img src="/static/images/instragram.png"alt="1" class="imgicon">
+        </a>
+        <a href="#">
+  <img src="/static/images/facebook.png"alt="2"class="imgicon">
+        </a>
+        <a href="https://www.linkedin.com/in/praveen342/">
+           <img src="/static/images/linkedin.png" alt="3" class="imgicon">
+        </a>
+      </div>
+  
+  
+     
+</footer>
+
+</body>
+</html>
+
+
+
+
+
