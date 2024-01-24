@@ -1,32 +1,19 @@
 {% extends "base.html" %}  
 {% block title %} download {% endblock title %}   
     <style>
-        .btn-style{
-            
-            font-size: large;
         
-            color:rgb(243, 9, 9);
-             
-            background: #cdf1cc;
-            margin-left: 73%;
-            top: 200px;
-            position: absolute;
-
-            max-width: auto;;
-          
-
-            border: 1px solid green;
-        }
-        .inp-style{
+ 
+        .input-style{
             color: aqua;
             font-size: large;
+            position: relative;
             text-rendering: none;
-            color: hsl(228, 100%, 1%);
+            color: hsl(228, 80%, 52%);
             height: 26px;
             border: 1px solid aqua;
             box-shadow: 2px 1px 2px 1px rgb(45, 162, 240);
-            position: relative;
         }
+
         .thumbnale{
             width: 500px;
             height: 300px;
@@ -45,7 +32,7 @@
         <label style="color: rgb(62, 62, 241); font-size: 40px;">
             Enter video url:
         </label>
-        <input class="inp-style" type="text" size="70" name="url_of_video"  placeholder=" Enter url" required><br><br>
+        <input class="input-style" type="text" size="70" name="url_of_video"  placeholder=" Enter url" required><br><br>
          
 
         <!-- informaation of video design here -->
@@ -61,7 +48,8 @@
          
            
  
-       <button class="btn-style" type="submit"> Dowload video</button>
+       <button style="color: red; margin-left: 65%; top: 200px; position: absolute;
+       border: 1px solid rgb(63, 253, 63); font-size: large;" type="submit"> Dowload video</button>
     </form>
 
     {% endblock body %}
