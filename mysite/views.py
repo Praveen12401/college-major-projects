@@ -6,12 +6,14 @@ from servise.models import Picture
 from .forms import Userform, LoginForm
 from django.contrib.auth import authenticate, login
 from django.core.mail import send_mail
-
+from django.conf import settings
 picturedata = Picture.objects.all()
 data = {"picturedata": picturedata}
 
 
 def index(request):
+    apikey=settings.API
+    print(apikey)
 
     # subject = 'Subject of the email'
     # message = 'Body of the email.'
