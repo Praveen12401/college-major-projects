@@ -6,14 +6,14 @@ from servise.models import Picture
 from .forms import Userform, LoginForm
 from django.contrib.auth import authenticate, login
 from django.core.mail import send_mail
-from django.conf import settings
+# from django.conf import settings
 picturedata = Picture.objects.all()
 data = {"picturedata": picturedata}
 
 
 def index(request):
-    apikey=settings.API
-    print(apikey)
+    # apikey=settings.API
+    # print(apikey)
 
     # subject = 'Subject of the email'
     # message = 'Body of the email.'
@@ -70,8 +70,8 @@ def chat_gpt_work(request):
             # Extract and return the assistant's reply
             assistant_reply = response['choices'][0]['message']['content']
             return assistant_reply
-        except:
-            return "Someting is wrong please check internet connection"
+        except Exception as e:
+            return f"Someting is wrong please check internet connection{e}"
 
     prompt = request.GET.get("prompt", "hi")
 
