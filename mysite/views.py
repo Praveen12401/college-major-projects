@@ -5,7 +5,7 @@ from pytube import YouTube
 from servise.models import Picture
 from .forms import Userform, LoginForm
 from django.contrib.auth import authenticate, login
-# from django.core.mail import send_mail
+from django.core.mail import send_mail
 from django.conf import settings
 
 picturedata = Picture.objects.all()
