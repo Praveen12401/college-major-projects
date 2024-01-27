@@ -18,17 +18,17 @@ from django.contrib import admin
 from django.urls import path
 from . import views
 from django.conf import settings
-from  django.conf.urls.static import static
+from django.conf.urls.static import static
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('account_login/', views.user_login),
-    path("", views.index, name="index"),
-    path("about/", views.about, name="about"),
-    path("contant/", views.contant, name="contant"),
-    path("download/", views.download, name="download"),
-    path("chat-gpt/", views.chat_gpt, name="chat_gpt"),
-    path("chat_gpt_work/", views.chat_gpt_work, name="chat_gpt"),
-    path("single_video/", views.single_video, name="video")
+                  path('admin/', admin.site.urls),
+                  path('account_login/', views.user_login),
+                  path("", views.index, name="index"),
+                  path("about/", views.about, name="about"),
+                  path("contant/", views.contant, name="contant"),
+                  path("download/", views.download, name="download"),
+                  path("chat-gpt/", views.chat_gpt, name="chat_gpt"),
+                  path("chat_gpt_work/", views.chat_gpt_work, name="chat_gpt"),
+                  path("single_video/", views.single_video, name="video")
 
-]+ static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
