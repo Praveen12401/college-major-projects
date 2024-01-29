@@ -1,12 +1,15 @@
-from django.http import HttpResponse, HttpResponseRedirect
-import openai, random, string
-from django.shortcuts import render
-from pytube import YouTube
-from servise.models import Picture
-from .forms import Userform, LoginForm
+import openai
+import random
+import string
+from django.conf import settings
 from django.contrib.auth import authenticate, login
 from django.core.mail import send_mail
-from django.conf import settings
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render
+from pytube import YouTube
+
+from servise.models import Picture
+from .forms import Userform, LoginForm
 
 picturedata = Picture.objects.all()
 data = {"picturedata": picturedata}
@@ -15,12 +18,12 @@ data = {"picturedata": picturedata}
 def index(request):
     print(settings.API)
 
-    # subject = 'Subject of the email'
-    # message = 'Body of the email.'
-    # from_email = 'praveen264y@gamil.com'
-    # recipient_list = ['praveenyadav16178@gmail.com']
+    subject = 'Subject of the email'
+    message = 'Body of the email.'
+    from_email = 'praveen264y@gamil.com'
+    recipient_list = ['praveenyadav16178@gmail.com']
 
-    # send_mail(subject, message, from_email, recipient_list)
+    send_mail(subject, message, from_email, recipient_list)
     return render(request, "home.html")
 
 
