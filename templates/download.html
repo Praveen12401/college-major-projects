@@ -1,55 +1,83 @@
 {% extends "base.html" %}  
 {% block title %} download {% endblock title %}   
-    <style>
-        
  
-        .input-style{
-            color: aqua;
-            font-size: large;
-            position: relative;
-            text-rendering: none;
-            color: hsl(228, 80%, 52%);
-            height: 26px;
-            border: 1px solid aqua;
-            box-shadow: 2px 1px 2px 1px rgb(45, 162, 240);
-        }
+ 
 
-        .thumbnale{
-            width: 500px;
-            height: 300px;
-            
-            border: 0px solid red;
-            display: flex;
-            margin-left: 20%;
-        }
-    </style>
 
  {% block body %}
+ <style>
+  .inp-style{
+      color: aqua;
+      font-size: large;
+      position: relative;
+      text-rendering: none;
+      color: hsl(228, 100%, 1%);
+      height: 26px;
+      border: 1px solid aqua;
+      box-shadow: 2px 1px 2px 1px rgb(45, 162, 240);
+      
+      
+  }
+  .btn-style{
+      font-size: large;
+      color:rgb(243, 9, 9);
+      border: 1px solid green;
+      margin-left: 80%;
+      margin-bottom: 99%;
+      top: 200px;
+      position: absolute;
+     
+           }
+           
+  h2{
+  color:red;
+  }
+  .thumbnale1{
+    width: 450px;
+    height: 300px;
+    display: flex;
+    margin-left: 10%;
+  }
+</style>
+
+
     <!-- form for video downloading design -->
+
     <h1 style="color:rgb(228, 24, 255); margin-left: 20%;"> Enter any url of YouTube video and  download</h1>
 
-    <form action="/single_video" method="get">
+    <form  method="post" >{% csrf_token %}
         <label style="color: rgb(62, 62, 241); font-size: 40px;">
             Enter video url:
         </label>
-        <input class="input-style" type="text" size="70" name="url_of_video"  placeholder=" Enter url" required><br><br>
+        <input class="inp-style" type="text" size="70" name="url_of_video"  placeholder=" Enter url" required><br><br>
          
 
         <!-- informaation of video design here -->
         {% if  internet %}
         <label><h1 style="color:red;">please check internet coneection  or  </h1></label>
         {% endif %}
-        <label style="color: rgb(240, 51, 51);font-size:60px;">title:</label> <h1>{{title}}</h1>
+        <label style="color: rgb(240, 51, 51);font-size:30px;">title:</label> <h2>{{title}}</h2>
         
        {% if thumbnale %}
-       <div class="thumbnale">
-           <img class="thumbnale" src="{{thumbnale}}" alt="thumbnale"></div>
+       <div class="thumbnale1">
+           <img class="thumbnale1" src='{{thumbnale}}' alt="thumbnale"></div>
          {% endif %}
          
            
- 
-       <button style="color: red; margin-left: 65%; top: 200px; position: absolute;
-       border: 1px solid rgb(63, 253, 63); font-size: large;" type="submit"> Dowload video</button>
-    </form>
+       
+       <button style="color: red; margin-left: 70%; top: 200px; position: absolute;
+       border: 1px solid rgb(63, 253, 63); font-size: large;" type="submit"> Get video</button>
+
+  </form>
+  <!-- downlode form start her -->
+       <form  action='/single_video' method="get"> 
+       <!-- {% if downlode %} -->
+        
+       <button style="color: red;  margin-left: 57%;top: 580px; position: absolute;
+       border: 1px solid rgb(63, 253, 63); font-size: large;" type="submit"> Downlode video</button>
+       <!-- {% endif %} -->
+       </form>
+    
 
     {% endblock body %}
+     

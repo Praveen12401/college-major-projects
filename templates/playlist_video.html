@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %} playlist-video{% endblock title %}   
+{% block body %}
+    <style>
+        .inp-style{
+            color: aqua;
+            font-size: large;
+            position: relative;
+            text-rendering: none;
+            color: hsl(228, 100%, 1%);
+            height: 26px;
+            border: 1px solid aqua;
+            box-shadow: 2px 1px 2px 1px rgb(45, 162, 240);
+            
+            
+        }
+        .btn-style{
+            font-size: large;
+            color:rgb(243, 9, 9);
+            border: 1px solid green;
+            margin-left: 80%;
+            margin-bottom: 99%;
+            top: 200px;
+            position: absolute;
+           
+                 }
+                 
+        h2{
+        color:red;
+        }
+    </style>
+ 
+
+<h1 style="color: rgb(228, 24, 255); margin-left: 20%;"> Enter any url of YouTube video and  download<</h1>
+
+<form action="/playlist" method="get">
+    {% comment %} {% csrf_token %} {% endcomment %}
+    <label style="color: rgb(62, 62, 241); font-size: 40px;">
+        Enter url:
+    </label>
+    <input class="inp-style" type="text" size="70" name="prompt" placeholder=" Enter promt" required><br><br>
+    
+    
+   
+    
+    
+    <button class="btn-style" type="submit"> submit</button>
+</form>
+
+
+{% endblock body %}

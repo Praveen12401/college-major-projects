@@ -29,17 +29,13 @@ def about(request):
     return render(request, "about.html")
 
 
-def contant(requests):
+def contant(request):
     fn = Userform()
     data = {
         'email': fn
     }
 
-    return render(requests, "contant.html", data)
-
-
-def download(requests):
-    return render(requests, "download.html")
+    return render(request, "contant.html", data)
 
 
 def chat_gpt(request):
@@ -48,7 +44,7 @@ def chat_gpt(request):
 
 def chat_gpt_work(request):
     # Set your OpenAI API key
-    api_key = "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"
+    api_key = "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"
     # Initialize the OpenAI API client
     openai.api_key = api_key
 
@@ -81,12 +77,21 @@ def chat_gpt_work(request):
     return render(request, "chat_gpt.html", {"reply": assistant_reply, "question": prompt})
 
 
-def single_video(request):
-    if request.method == "GET":
+url = ''
+save_path = ''
+str_1 = ''
+
+
+def download(request):
+    global url
+    global save_path
+    global str_1
+
+    if request.method == "POST":
 
         try:
-            url = request.GET.get("url_of_video", "default")
-            save_path = request.GET.get("path", "C:\\Users\\91638\\Downloads")
+            url = request.POST.get("url_of_video", "default")
+            save_path = request.POST.get("path", "C:\\Users\\91638\\Downloads")
 
             str_1 = YouTube(url)
 
@@ -96,9 +101,33 @@ def single_video(request):
             data = {
                 "title": title,
                 "thumbnale": thumbnale,
-                "internet": False
+                "internet": False,
+                'downlode': True,
+                'video': 'Get video'
 
             }
+            # str = str_1.streams.get_highest_resolution()
+            # str.download(output_path=save_path)
+        except:
+            print("exception")
+            data = {
+                "title": "Something wrong",
+                "thumbnale": False,
+                "internet": True
+            }
+            return render(request, "download.html", data)
+
+        return render(request, "download.html", data)
+
+    return render(request, "download.html")
+
+
+def single_video(request):
+    if request.method == "GET":
+
+        try:
+            print('downloding now....')
+
             str = str_1.streams.get_highest_resolution()
             str.download(output_path=save_path)
         except:
@@ -110,7 +139,7 @@ def single_video(request):
             }
             return render(request, "download.html", data)
 
-        return render(request, "download.html", data)
+        return HttpResponseRedirect('/download/')
     print("last")
 
     return render(request, "download.html")
