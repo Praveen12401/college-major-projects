@@ -18,12 +18,7 @@ data = {"picturedata": picturedata}
 def index(request):
     print(settings.API)
 
-    subject = 'Subject of the email'
-    message = 'Body of the email.'
-    from_email = 'praveen264y@gamil.com'
-    recipient_list = ['praveenyadav16178@gmail.com']
-
-    send_mail(subject, message, from_email, recipient_list)
+    
     return render(request, "home.html")
 
 
