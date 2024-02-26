@@ -1,132 +1,178 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %} {% endblock  %}</title>
-</head>
-{% load static %}
-<link href="{% static 'static/src/footer.css' %}"  rel="stylesheet" type="text/css" />
-<link href="{% static 'static/src/header.css' %}"  rel="stylesheet" type="text/css" />
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<body>
-<header>
-    <nav class="navbar">
-        <ul>
-            <li class="{% if request.path == '/' %} active {% endif %}"><a href="/">Home</a></li>
-            <li class="{% if request.path == '/about/' %} active {% endif %}"><a href="/about">About</a></li>
-            <li class="{% if request.path == '/contant/' %} active {% endif %}"><a href="/contant">Contant</a></li>
-            <li class="{% if request.path == '/download/' %} active {% endif %}"><a href="/download">download</a></li>
-            <li class="{% if request.path == '/chat-gpt/' %} active {% endif %}"><a href="/chat-gpt">chat-gpt</a></li>
-            <div class="search">
-                <input type="text" name="search" id="search" placeholder="search this website">
-                <a href="/account_signip">Signup</a>
-                <a href="/account_login">Login</a>
-            </div>
-        
-        
-        </ul>
-    </nav>
-</header>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
+    <title>{% block title %}   {% endblock title %}</title>
+  </head>
+  <body>
 
-{% block body %}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/">iCoder</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item {% block homeactive %}  {% endblock homeactive %}">
+              <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item {% block aboutactive %}  {% endblock aboutactive %}" >
+              <a class="nav-link" href="/about">About</a>
+            </li>
+            <li class="nav-item {% block contactactive %}  {% endblock contactactive %} ">
+              <a class="nav-link" href="/contact">Contact</a>
+            </li>
+            <li class="nav-item {% block blogactive %}  {% endblock blogactive %} ">
+              <a class="nav-link" href="/download"  target="_blank">download</a>
+            </li>
+            
+          </ul>
+          <div class="ml-auto form-inline ">
+          <form method="get" action="#"class="my-2 my-lg-0 mx-3">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="query" id="query">
+            
+            <a href="/admin" role="button" target="_blank" class="btn btn-outline-success m-2 my-sm-0"> Admin Panel </a>
+          </form>
 
-
-{% endblock body %}
-
-
-
-  <!-- sticker  fixd position design  here-->
-   <!-- sticker design  here-->
- <a href="mailto:211152@kit.ac.in">
-   <img class="sticker1" src="/static/images/gmail.png" alt="gmail" >
-</a>
-<a href="tel:+916386816303">
-   <img class="sticker2" src="/static/images/phone-call.png" alt="Phone-call" >
-  </a>
-   <!-- sticker design  here-->
-    <center>
-  <h3 style="color:rgb(16, 117, 248); background-color: rgb(130, 248, 248); height: 50px;font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;"> about my team members</h3>
-      </center>
-  <!-- section end tag  -->
-<!-- <h> footer start here</h> -->
-
-  
-    
-       
-         
-<div class="main">
      
-      <div class="img-tag">
-          <img class="image1" src="/static/images/aman.jpg" alt="im2">
-          <h1 style="text-align: center;color:rgb(212, 0, 255);">Aman alam</h1>
-          <p  class="paragraph-text"> A full-stack developer is a developer or engineer who can build both the front end and the back end of a website. The front end (the parts of a website a user sees and interacts with) and the back end (the behind-the-scenes data storage and processing) require different skill sets.</p>
-          <img class="starimg" src="/static/images/fullstar.jpg" alt="img1" >
-       </div>
-   
-    <div class="img-tag">
-       <img class="image1" src="/static/images/Ayush.jpeg" alt="im2">
-       <h1 style="text-align: center;color:rgb(212, 0, 255);">Ayush Gupta</h1>
-       <p  class="paragraph-text"> A full-stack developer is a developer or engineer who can build both the front end and the back end of a website. The front end (the parts of a website a user sees and interacts with) and the back end (the behind-the-scenes data storage and processing) require different skill sets.</p>
-       <img class="starimg" src="/static/images/fullstar.jpg" alt="img1" >
-    </div>
 
-    <div class="img-tag">
-        <img class="image1" src="/static/images/sandeep.jpg" alt="im3">
-        <h1 style="text-align: center;color:rgb(212, 0, 255);">Sandeep Srivastva</h1>
-        <p  class="paragraph-text"> A full-stack developer is a developer or engineer who can build both the front end and the back end of a website. The front end (the parts of a website a user sees and interacts with) and the back end (the behind-the-scenes data storage and processing) require different skill sets.</p>
-        <img class="starimg" src="/static/images/fullstar.jpg" alt="img1" >
-    </div>
-    
-    <div class="img-tag">
-        <img class="image1" src="/static/images/praveen.png" alt="im3">
-        <h1 style="text-align: center;color:rgb(212, 0, 255);">Praveen yadav</h1>
-        <p  class="paragraph-text"> A full-stack developer is a developer or engineer who can build both the front end and the back end of a website. The front end (the parts of a website a user sees and interacts with) and the back end (the behind-the-scenes data storage and processing) require different skill sets.</p>
-        <img class="starimg" src="/static/images/fullstar.jpg" alt="img1" >
-    </div>  
+{% if user.is_authenticated %}
+<ul class="navbar-nav mr-2">
+<li class="nav-item dropdown">
+<a class="nav-link dropdown-toggle" href='#' id="navbarDropdown" role="button" data-toggle="dropdown"> Welcome {{request.user}}</a>
+<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/logout">Logout</a>
 
-</div>
-<!-- section end here -->
-<br>
-<br>
-<!-- footer start  here-->
-<footer>
-  <center>
-    <h3 style="color:rgb(16, 117, 248); background-color: rgb(130, 248, 248); height: 50px;font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;"> footer servises provide</h3>
-    <div class="container"id="cn">
-       <h3>Subscribe To junior coders</h3>
-       <form>
-      <input type="email"id="emails"placeholder="Enter Here Emails" required>
-      <button class="submit"id="btn">
-        Subscribe
-      </button>
-    </form>
-    </div>
-    </center>
-      <div class="second-container">
-        <p class="pragraphe">
-          @  servises provide-by small community junior coder
-        </p>
-        <a href="#">
-        <img src="/static/images/instragram.png"alt="1" class="imgicon">
-        </a>
-        <a href="#">
-  <img src="/static/images/facebook.png"alt="2"class="imgicon">
-        </a>
-        <a href="https://www.linkedin.com/in/praveen342/">
-           <img src="/static/images/linkedin.png" alt="3" class="imgicon">
-        </a>
+        </div>
+      </li>
+      </ul>
       </div>
-  
-  
-     
-</footer>
+{% else %}
+  <!-- Button to  trigger Login modal -->
+<button type="button" class="btn btn-success mr-2" data-toggle="modal" data-target="#loginModal">
+Login
+</button>
 
-</body>
+<button type="button" class="btn btn-success mr-2" data-toggle="modal" data-target="#signupModal">
+SignUp
+</button>
+{% endif %}
+
+
+        </div>
+      </nav>
+      {% for message in messages  %}            
+      <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            <strong>Message : </strong> {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+      {% endfor %}    
+
+
+
+ 
+
+<!-- SignUp Modal -->
+<div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="signupModalTitle">SignUp Here</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action= "/signup" method='post'>
+  <div class="form-group">
+    <label for="username">Username</label>
+    <input type="text" class="form-control" id="username" name="username" placeholder="Choose a unique username" required>
+  </div>
+  <div class="form-group">
+    <label for="fname">First Name</label>
+    <input type="text" class="form-control" id="fname" name="fname" placeholder="Enter Your First Name" required>
+  </div>
+  <div class="form-group">
+    <label for="lname">Last Name</label>
+    <input type="text" class="form-control" id="lname" name="lname" placeholder="Enter Your Last Name" required>
+  </div>
+  <div class="form-group">
+    <label for="email">Email address</label>
+    <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" required>
+  </div>
+  <div class="form-group">
+    <label for="pass1">Choose a password</label>
+    <input type="password" class="form-control" id="pass1" name="pass1" placeholder="Choose Your Password" required>
+  </div>
+  <div class="form-group">
+    <label for="pass2">Confirm Password</label>
+    <input type="password" class="form-control" id="pass2" name="pass2" placeholder="Enter your password again" required>
+  </div>
+ 
+
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+      {% block body %}  {% endblock body %}
+   <!-- here footer css link or external apply  -->
+    {% include "footer.html" %}
+ 
+ 
+ 
+
+
+<!-- Login Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="loginModalTitle">Login Here</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="/login" method="POST"> {% csrf_token %}
+  <div class="form-group">
+    <label for="username">Username</label>
+    <input type="text" class="form-control" id="loginusername" name="loginusername" placeholder="Enter your username "required>
+  </div>
+  <div class="form-group">
+    <label for="pass">Enter your password </label>
+    <input type="password" class="form-control" id="loginpassword" name="loginpassword" placeholder="Enter your password "required>
+  </div>
+ 
+        <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+      </div>
+       <div class="modal-footer">
+      </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+  </body>
 </html>
-
-
-
-
-

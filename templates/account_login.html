@@ -4,54 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>login-page</title>
-    <style>
-
-        .loginbtn{
-            color: blue;
-            background-color: rgb(114, 252, 114);
-            width: 14%;
-            height: 10%;
-            font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-            border: 1px solid green;
-            font-size: 20px;
-            
-        }
-
-        .box{
-            border: 1px solid salmon;
-            width: 40%;
-            height: 300px;
-            background-color: antiquewhite;
-        }
-        .capture{
-            width: 142px;
-            height: 32px;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            left: 10px;
-            color: #5fe91e;
-            background: white;"
-        }
-    </style>
+    
+  
  </head>
  <body>
     
-    
-<p> login page</p>
-<center>
-    <h2 style="color: rgb(243, 9, 87);"> Enter user name and password</h2>
-    <div class="box">
-<form method="post">{% csrf_token %}
-    <h1>
-       {{form.as_p}}
-       
-    </h1>
-    
-   <h3 class="capture"> {{capture}} capture </h3>
-   <input style="width: 130px;height: 20px;margin-left: 60%;" type="text" name="capture" maxlength="5" required minlength="5">
-    <p><input type="submit" value="login"  class="loginbtn"></p>
-</form>
-</div>
-</center>
+
+<!-- Login Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="loginModalTitle">Login Here</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="/login" method="POST"> {% csrf_token %}
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="text" class="form-control" id="loginusername" name="loginusername" placeholder="Enter your username "required>
+    </div>
+    <div class="form-group">
+      <label for="pass">Enter your password </label>
+      <input type="password" class="form-control" id="loginpassword" name="loginpassword" placeholder="Enter your password "required>
+    </div>
+   
+          <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+        </div>
+         <div class="modal-footer">
+        </div>
  
  </body>
  </html>

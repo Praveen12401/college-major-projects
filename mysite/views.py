@@ -1,11 +1,14 @@
 from django.http import HttpResponse, HttpResponseRedirect
+
 import openai, random, string
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from pytube import YouTube
 from servise.models import Picture
 from .forms import Userform, LoginForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login,logout
 from django.core.mail import send_mail
+from django.contrib import messages 
+from django.contrib.auth.models import User 
 
 # from django.conf import settings
 picturedata = Picture.objects.all()
@@ -29,13 +32,10 @@ def about(request):
     return render(request, "about.html")
 
 
-def contant(request):
-    fn = Userform()
-    data = {
-        'email': fn
-    }
+def contact(request):
+   
 
-    return render(request, "contant.html", data)
+    return render(request, "contact.html")
 
 
 def chat_gpt(request):
@@ -145,28 +145,61 @@ def single_video(request):
     return render(request, "download.html")
 
 
-def user_login(request):
-    form = LoginForm()
-    capture1 = string.ascii_letters + string.digits
-    capture = ' '.join(random.choice(capture1) for _ in range(5))
-    print(capture)
 
-    if request.method == "POST":
-        form = LoginForm(request.POST)
-        if form.is_valid():
-            cd = form.cleaned_data
-            user = authenticate(request,
-                                username=cd['username'],
-                                password=cd['password'])
-            if user is not None:
-                if user.is_active:
-                    login(request, user)
-                    return HttpResponseRedirect('/')
-                else:
-                    return HttpResponse('Disable account')
-            else:
-                return HttpResponse('Invalid login')
+def handleSignUp(request):
+    if request.method=="POST":
+        # Get the post parameters
+        username=request.POST['username']
+        email=request.POST['email']
+        fname=request.POST['fname']
+        lname=request.POST['lname']
+        pass1=request.POST['pass1']
+        pass2=request.POST['pass2']
+
+        # check for errorneous input
+        if len(username)>10:
+            messages.error(request, " Your user name must be under 10 characters")
+            return redirect('Home')
+
+        if not username.isalnum():
+            messages.error(request, " User name should only contain letters and numbers")
+            return redirect('Home')
+        if (pass1!= pass2):
+             messages.error(request, " Passwords do not match")
+             return redirect('Home')
+        
+        # Create the user
+        myuser = User.objects.create_user(username, email, pass1)
+        myuser.first_name= fname
+        myuser.last_name= lname
+        myuser.save()
+        messages.success(request, " Your iCoder has been successfully created")
+        return redirect('Home')
+
+    else:
+        return HttpResponse("404 - Not found")
+
+def handeLogin(request):
+    if request.method=="POST":
+        # Get the post parameters
+        loginusername=request.POST['loginusername']
+        loginpassword=request.POST['loginpassword']
+
+        user=authenticate(username= loginusername, password= loginpassword)
+        if user is not None:
+            login(request, user)
+            messages.success(request, "Successfully Logged In")
+            return redirect("Home")
         else:
-            form = LoginForm()
-        return render(request, 'account_login.html', {'form': form})
-    return render(request, 'account_login.html', {'form': form, "capture": capture})
+            messages.error(request, "Invalid credentials! Please try again")
+            return redirect("Home")
+
+    return HttpResponse("404- Not found")
+   
+
+    return HttpResponse("login")
+
+def handelLogout(request):
+    logout(request)
+    messages.success(request, "Successfully logged out")
+    return redirect('Home')

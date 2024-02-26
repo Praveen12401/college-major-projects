@@ -22,10 +22,12 @@ from  django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('account_login/', views.user_login),
-    path("", views.index, name="index"),
+    path('signup', views.handleSignUp, name="handleSignUp"),
+    path('login', views.handeLogin, name="handleLogin"),
+    path('logout/', views.handelLogout, name="handleLogout"),
+    path("", views.index, name="Home"),
     path("about/", views.about, name="about"),
-    path("contant/", views.contant, name="contant"),
+    path("contact/", views.contact, name="contact"),
     path("download/", views.download, name="download"),
     path("chat-gpt/", views.chat_gpt, name="chat_gpt"),
     path("chat_gpt_work/", views.chat_gpt_work, name="chat_gpt"),
