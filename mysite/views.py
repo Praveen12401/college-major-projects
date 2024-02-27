@@ -88,21 +88,48 @@ def download(request):
     global str_1
 
     if request.method == "POST":
+        item=[]
+        itemv=[]
 
         try:
             url = request.POST.get("url_of_video", "default")
             save_path = request.POST.get("path", "C:\\Users\\91638\\Downloads")
 
             str_1 = YouTube(url)
+            s=str_1.streams.get_highest_resolution()
 
             title = str_1.title
             thumbnale = str_1.thumbnail_url
+            '''  '''
+            total=s.filesize
+
+            print('size',total//1024,' KB')
+            print('size mb',total//1048576,'MB')
+
+
+
+            # Get all streams (progressive and audio)
+            all_streams = str_1.streams
+            print(all_streams)
+
+            print("Progressive Streams:")
+            for stream in all_streams.filter(type="video", progressive=True):
+                item.append(stream.resolution)
+                print(f"Resolution: {stream.resolution}, Format: {stream.mime_type}, Codec: {stream.video_codec}")
+
+            print("\nAudio Streams:")
+            for stream in all_streams.filter(type="audio"):
+                itemv.append(stream)
+                print(f"Bitrate: {stream.abr}, Format: {stream.mime_type}, Codec: {stream.audio_codec}")
+
 
             data = {
                 "title": title,
                 "thumbnale": thumbnale,
                 "internet": False,
                 'downlode': True,
+                'item':item,
+                'itemv':itemv,
                 'video': 'Get video'
 
             }
@@ -173,7 +200,8 @@ def handleSignUp(request):
         myuser.first_name= fname
         myuser.last_name= lname
         myuser.save()
-        messages.success(request, " Your iCoder has been successfully created")
+        login(request, myuser)
+        messages.success(request, " Your iCoder has been successfully created and Logged in")
         return redirect('Home')
 
     else:

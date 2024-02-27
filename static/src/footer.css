@@ -57,6 +57,7 @@
     border: 0.5px solid orangered;
     border-color: orangered;
     height: 200px;
+    margin-left: 0px;
 }
 
 #emails {

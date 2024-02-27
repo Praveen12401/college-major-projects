@@ -29,14 +29,23 @@
      
            }
            
-  h2{
+  h4{
   color:red;
   }
   .thumbnale1{
+    position: relative;
     width: 450px;
     height: 300px;
     display: flex;
     margin-left: 10%;
+  }
+  .video-type{
+    width: 400px;
+    height: 260px;
+    border: 1px solid rgb(45, 162, 240);
+    position: absolute;
+     left: 50%;
+     top: 30%;
   }
 </style>
 
@@ -56,7 +65,7 @@
         {% if  internet %}
         <label><h1 style="color:red;">please check internet coneection  or  </h1></label>
         {% endif %}
-        <label style="color: rgb(240, 51, 51);font-size:30px;">title:</label> <h2>{{title}}</h2>
+        <label style="color: rgb(243, 10, 10);font-size:30px;">title:</label> <h4>{{title}}</h4>
         
        {% if thumbnale %}
        <div class="thumbnale1">
@@ -71,6 +80,12 @@
   </form>
   <!-- downlode form start her -->
        <form  action='/single_video' method="get"> 
+        <div class="video-type">
+        {% for i in item %}
+
+        {{i}}
+        {% endfor %}
+      </div>
        <!-- {% if downlode %} -->
         
        <button style="color: red;  margin-left: 57%;top: 580px; position: absolute;

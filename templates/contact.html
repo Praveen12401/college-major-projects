@@ -1,9 +1,13 @@
-{% extends "base.html" %}
-{% block title %} contant {% endblock title %}   
-{% block body %}
-    <p> contant</p>
-    <form method='get'>
-    <!--Section: Contact v.2-->
+{% extends "base.html" %}  
+{% block title %} contact {% endblock title %}   
+ 
+ 
+ 
+ {% block body %} 
+ 
+
+
+<!--Section: Contact v.2-->
 <section class="mb-4">
 
     <!--Section heading-->
@@ -16,7 +20,7 @@
 
         <!--Grid column-->
         <div class="col-md-9 mb-md-0 mb-5">
-            <form id="contact-form" name="contact-form" action="mail.php" method="POST">
+            <form id="contact-form" name="contact-form" action="/contact" method="GET">
 
                 <!--Grid row-->
                 <div class="row">
@@ -98,6 +102,39 @@
     </div>
 
 </section>
+<script>
+    function validateForm() {
+        var name = document.getElementById('name').value;
+        if (name == "") {
+            document.querySelector('.status').innerHTML = "Name cannot be empty";
+            return false;
+        }
+        var email = document.getElementById('email').value;
+        if (email == "") {
+            document.querySelector('.status').innerHTML = "Email cannot be empty";
+            return false;
+        } else {
+            var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            if (!re.test(email)) {
+                document.querySelector('.status').innerHTML = "Email format invalid";
+                return false;
+            }
+        }
+        var subject = document.getElementById('subject').value;
+        if (subject == "") {
+            document.querySelector('.status').innerHTML = "Subject cannot be empty";
+            return false;
+        }
+        var message = document.getElementById('message').value;
+        if (message == "") {
+            document.querySelector('.status').innerHTML = "Message cannot be empty";
+            return false;
+        }
+        document.querySelector('.status').innerHTML = "Sending...";
+    }
+</script>
 <!--Section: Contact v.2-->
-</form>
-{% endblock body %}
+
+  
+  {% endblock body %}
+ 
