@@ -11,8 +11,8 @@ from django.contrib import messages
 from django.contrib.auth.models import User 
 
 # from django.conf import settings
-picturedata = Picture.objects.all()
-data = {"picturedata": picturedata}
+# picturedata = Picture.objects.all()
+# data = {"picturedata": picturedata}
 
 
 def index(request):
@@ -113,14 +113,14 @@ def download(request):
             print(all_streams)
 
             print("Progressive Streams:")
-            for stream in all_streams.filter(type="video", progressive=True):
-                item.append(stream.resolution)
-                print(f"Resolution: {stream.resolution}, Format: {stream.mime_type}, Codec: {stream.video_codec}")
+            # for stream in all_streams.filter(type="video", progressive=True):
+            #     item.append(stream.resolution)
+            #     print(f"Resolution: {stream.resolution}, Format: {stream.mime_type}, Codec: {stream.video_codec}")
 
-            print("\nAudio Streams:")
-            for stream in all_streams.filter(type="audio"):
-                itemv.append(stream)
-                print(f"Bitrate: {stream.abr}, Format: {stream.mime_type}, Codec: {stream.audio_codec}")
+            # print("\nAudio Streams:")
+            # for stream in all_streams.filter(type="audio"):
+            #     itemv.append(stream)
+            #     print(f"Bitrate: {stream.abr}, Format: {stream.mime_type}, Codec: {stream.audio_codec}")
 
 
             data = {
@@ -156,7 +156,15 @@ def single_video(request):
             print('downloding now....')
 
             str = str_1.streams.get_highest_resolution()
-            str.download(output_path=save_path)
+            file_path=str.download()
+            print('file path',file_path)
+        
+
+            file_name = os.path.basename(file_path)
+            with open(file_path, 'rb') as file:
+                response = HttpResponse(file.read(), content_type='video/mp4')
+                response['Content-Disposition'] = f'attachment; filename="{file_name}"'
+                return response
         except:
             print("exception")
             data = {
