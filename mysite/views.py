@@ -1,30 +1,23 @@
 from django.http import HttpResponse, HttpResponseRedirect
 
-import openai, random, string
+import openai, os
 from django.shortcuts import render,redirect
 from pytube import YouTube
-from servise.models import Picture
+from servise.models import Projects
 from .forms import Userform, LoginForm
 from django.contrib.auth import authenticate, login,logout
 from django.core.mail import send_mail
 from django.contrib import messages 
-from django.contrib.auth.models import User 
+from django.contrib.auth.models import User
+from django.http import FileResponse
+from django.conf import settings
 
 # from django.conf import settings
-picturedata = Picture.objects.all()
-data = {"picturedata": picturedata}
+
 
 
 def index(request):
-    # apikey=settings.API
-    # print(apikey)
 
-    # subject = 'Subject of the email'
-    # message = 'Body of the email.'
-    # from_email = 'praveen264y@gamil.com'
-    # recipient_list = ['praveenyadav16178@gmail.com']
-
-    # send_mail(subject, message, from_email, recipient_list)
     return render(request, "home.html")
 
 
@@ -33,10 +26,25 @@ def about(request):
 
 
 def contact(request):
-   
+    projectdata = Projects.objects.all()
+    data = {"picturedata": projectdata}
+    for item in projectdata:
+        print(item.project_file.path)
+    # file_path = projectdata.project_file.path
+    # print(file_path)
 
-    return render(request, "contact.html")
 
+    return render(request, "contact.html",data)
+def serve_exe(request):
+    projectdata = Projects.objects.all()
+    data = {"picturedata": projectdata}
+
+    # Path to the .exe file
+    path=os.path.join(Project.project_file)
+    print(path)
+    exe_path = os.path.join(settings.STATIC_ROOT, 'path_to_your_exe_file.exe')
+    response = FileResponse(open(exe_path, 'rb'))
+    return response
 
 def chat_gpt(request):
     return render(request, "chat_gpt.html")
@@ -102,6 +110,7 @@ def download(request):
             thumbnale = str_1.thumbnail_url
             '''  '''
             total=s.filesize
+            video_size=total // 1048576
 
             print('size',total//1024,' KB')
             print('size mb',total//1048576,'MB')
@@ -109,23 +118,13 @@ def download(request):
 
 
             # Get all streams (progressive and audio)
-            all_streams = str_1.streams
-            print(all_streams)
 
-            print("Progressive Streams:")
-            for stream in all_streams.filter(type="video", progressive=True):
-                item.append(stream.resolution)
-                print(f"Resolution: {stream.resolution}, Format: {stream.mime_type}, Codec: {stream.video_codec}")
-
-            print("\nAudio Streams:")
-            for stream in all_streams.filter(type="audio"):
-                itemv.append(stream)
-                print(f"Bitrate: {stream.abr}, Format: {stream.mime_type}, Codec: {stream.audio_codec}")
 
 
             data = {
                 "title": title,
                 "thumbnale": thumbnale,
+                'video_size':video_size,
                 "internet": False,
                 'downlode': True,
                 'item':item,
