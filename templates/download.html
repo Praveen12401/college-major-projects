@@ -21,7 +21,7 @@
   .btn-style{
       font-size: large;
       color:rgb(243, 9, 9);
-      border: 1px solid green;
+      border: 0px solid green;
       margin-left: 80%;
       margin-bottom: 99%;
       top: 200px;
@@ -45,7 +45,7 @@
     border: 1px solid rgb(45, 162, 240);
     position: absolute;
      left: 50%;
-     top: 30%;
+     top: 60%;
   }
 </style>
 
@@ -83,7 +83,18 @@
         <div class="video-type">
         {% for i in item %}
 
-        {{i}}
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+          <label class="form-check-label" for="flexRadioDefault1">
+            {{i}}
+          </label>
+        </div>
+        <!-- <div class="form-check">
+          <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+          <label class="form-check-label" for="flexRadioDefault2">
+            Default checked radio
+          </label>
+        </div> -->
         {% endfor %}
       </div>
        <!-- {% if downlode %} -->
