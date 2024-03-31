@@ -127,7 +127,8 @@ def download(request):
             print('size mb', total // 1048576, 'MB')
 
             # Get all streams (progressive and audio)
-
+            all_streams = str_1.streams
+           
             data = {
                 "title": title,
                 "thumbnale": thumbnale,
@@ -162,7 +163,15 @@ def single_video(request):
             print('downloding now....')
 
             str = str_1.streams.get_highest_resolution()
-            str.download(output_path=save_path)
+            file_path=str.download()
+            print('file path',file_path)
+        
+
+            file_name = os.path.basename(file_path)
+            with open(file_path, 'rb') as file:
+                response = HttpResponse(file.read(), content_type='video/mp4')
+                response['Content-Disposition'] = f'attachment; filename="{file_name}"'
+                return response
         except:
             print("exception")
             data = {
