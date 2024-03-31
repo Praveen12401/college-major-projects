@@ -28,7 +28,6 @@ urlpatterns = [
     path("", views.index, name="Home"),
     path("about/", views.about, name="about"),
     path("contact/", views.contact, name="contact"),
-    path("contact/<fileid>/", views.serve_exe, name="serve_exe"),
     path("download/", views.download, name="download"),
     path("chat-gpt/", views.chat_gpt, name="chat_gpt"),
     path("chat_gpt_work/", views.chat_gpt_work, name="chat_gpt"),

@@ -33,28 +33,6 @@ def contact(request):
     return render(request, "contact.html", data)
 
 
-def serve_exe(request, fileid):
-    projectdata = Project.objects.all()
-    data = {"projectdata": projectdata}
-    if request.method == "GET":
-        download_file=Project.objects.get(id=fileid)
-        print('praveen')
-        print(download_file)
-
-        path= f'C:\\Users\\91638\\Desktop\\django - projects\\mysite\\media\\project\\{download_file}'
-        print(path)
-
-        path = os.path.join(settings.MEDIA_ROOT, path)
-        print(path)
-        # file_path = os.path.join(settings.BASE_DIR, path)
-
-        # Path to the .exe file
-
-        # exe_path = os.path.join(settings.STATIC_ROOT, path)
-        # print(exe_path)
-        # response = FileResponse(open(exe_path, 'rb'))
-        # return response
-    return render(request, "contact.html", data)
 
 
 def chat_gpt(request):
