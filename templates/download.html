@@ -65,7 +65,7 @@
         {% if  internet %}
         <label><h1 style="color:red;">please check internet coneection  or  </h1></label>
         {% endif %}
-        <label style="color: rgb(243, 10, 10);font-size:30px;">title:</label> <h4>{{title}}</h4>
+        <label style="color: rgb(243, 10, 10);font-size:30px;">title: {{video_size}} MB</label> <h4>{{title}}</h4>
         
        {% if thumbnale %}
        <div class="thumbnale1">
@@ -80,26 +80,13 @@
   </form>
   <!-- downlode form start her -->
        <form  action='/single_video' method="get"> 
-        <div class="video-type">
-        {% for i in item %}
-
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-          <label class="form-check-label" for="flexRadioDefault1">
-            {{i}}
-          </label>
-        </div>
-        <!-- <div class="form-check">
-          <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-          <label class="form-check-label" for="flexRadioDefault2">
-            Default checked radio
-          </label>
-        </div> -->
-        {% endfor %}
+       
+       
+       
       </div>
        <!-- {% if downlode %} -->
         
-       <button style="color: red;  margin-left: 57%;top: 580px; position: absolute;
+       <button style="color: red;  margin-left: 55%;top: 500px; position: absolute;
        border: 1px solid rgb(63, 253, 63); font-size: large;" type="submit"> Downlode video</button>
        <!-- {% endif %} -->
        </form>

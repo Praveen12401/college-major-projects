@@ -1,22 +1,63 @@
 {% extends "base.html" %}  
 {% block title %} contact {% endblock title %}   
  
+ <style>
+      .contens {
+     width: 100%;
+      
+     overflow: hidden;
+     }
+     
+ </style>
  
- 
- {% block body %} 
- 
- <form action="/contact-massege" method="GET">
+ {% block body %}
 
- <div class="mb-3">
-  <label for="exampleFormControlInput1" class="form-label">Email address</label>
-  <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" required>
+
+    <h1 style="color:rgb(228, 24, 255); margin-left: 20%;"> Download any software all software availabe .exe file formate only laptop and computer support</h1>
+
+<h3 style="color: rgb(105, 243, 243);margin-left: 10%;">
+        A full-stack developer helps build and maintain both the front-end and the back-end
+    of a website. Learn about full-stack developer skills, salary, and how you can become one.
+    </h3>
+
+
+<div class="card-group">
+<!--   <div class="col-sm-6 mb-3 mb-sm-0"> -->
+       {% for item in projectdata %}
+      <div class="col-sm-6  ">
+    <div class="card">
+        <div class="card" style="width: 18rem; hieght:60px;">
+             <img src="/media/{{item.project_photo}}" class="card-img-top" alt="...">
+        </div>
+      <div class="card-body">
+        <h5 class="card-title">{{item.project_name}}</h5>
+        <p class="card-text">{{item.project_profile}}</p>
+        <p class="card-text">{{item.about_project}}</p>
+        <a href="{{item.project_file.url}}" download >
+        <button  class="btn btn-primary">Download</button></a>
+        
+      </div>
+    </div>
+  </div>
+    {% endfor %}
 </div>
-<div class="mb-3">
-  <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
-  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-</div>
-      <button type="submit" class="btn btn-primary">Submit</button>
-  </form>
+                  <h1 style="color:rgb(228, 24, 255); margin-left: 20%;"> All software code available on github</h1>
+
+<div class="card-group">
+ <div class="card">
   
+        
+        <a href="https://github.com/Praveen12401/Python_project_with_exe_file"   target="_blank">
+            <div class="card" style="width: 18rem; hieght:60px;">
+             <img src="/static/images/git.jpg" class="card-img-top" alt="...">
+        </div>
+             <div class="card-body">
+            
+             <h3 class="card-title"><p style="color: blue;">link here</p></h3>
+           
+        </a>
+ </div>
+ </div>
+ </div>
   {% endblock body %}
  

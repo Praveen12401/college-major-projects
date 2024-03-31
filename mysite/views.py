@@ -1,23 +1,22 @@
 from django.http import HttpResponse, HttpResponseRedirect
 
 import openai, os
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect
 from pytube import YouTube
-from servise.models import Projects
+from servise.models import Project
 from .forms import Userform, LoginForm
-from django.contrib.auth import authenticate, login,logout
+from django.contrib.auth import authenticate, login, logout
 from django.core.mail import send_mail
-from django.contrib import messages 
+from django.contrib import messages
 from django.contrib.auth.models import User
 from django.http import FileResponse
 from django.conf import settings
 
+
 # from django.conf import settings
 
 
-
 def index(request):
-
     return render(request, "home.html")
 
 
@@ -26,25 +25,37 @@ def about(request):
 
 
 def contact(request):
-    projectdata = Projects.objects.all()
-    data = {"picturedata": projectdata}
+    projectdata = Project.objects.all()
+    data = {"projectdata": projectdata}
     for item in projectdata:
         print(item.project_file.path)
-    # file_path = projectdata.project_file.path
-    # print(file_path)
+
+    return render(request, "contact.html", data)
 
 
-    return render(request, "contact.html",data)
-def serve_exe(request):
-    projectdata = Projects.objects.all()
-    data = {"picturedata": projectdata}
+def serve_exe(request, fileid):
+    projectdata = Project.objects.all()
+    data = {"projectdata": projectdata}
+    if request.method == "GET":
+        download_file=Project.objects.get(id=fileid)
+        print('praveen')
+        print(download_file)
 
-    # Path to the .exe file
-    path=os.path.join(Project.project_file)
-    print(path)
-    exe_path = os.path.join(settings.STATIC_ROOT, 'path_to_your_exe_file.exe')
-    response = FileResponse(open(exe_path, 'rb'))
-    return response
+        path= f'C:\\Users\\91638\\Desktop\\django - projects\\mysite\\media\\project\\{download_file}'
+        print(path)
+
+        path = os.path.join(settings.MEDIA_ROOT, path)
+        print(path)
+        # file_path = os.path.join(settings.BASE_DIR, path)
+
+        # Path to the .exe file
+
+        # exe_path = os.path.join(settings.STATIC_ROOT, path)
+        # print(exe_path)
+        # response = FileResponse(open(exe_path, 'rb'))
+        # return response
+    return render(request, "contact.html", data)
+
 
 def chat_gpt(request):
     return render(request, "chat_gpt.html")
@@ -96,39 +107,35 @@ def download(request):
     global str_1
 
     if request.method == "POST":
-        item=[]
-        itemv=[]
+        item = []
+        itemv = []
 
         try:
             url = request.POST.get("url_of_video", "default")
             save_path = request.POST.get("path", "C:\\Users\\91638\\Downloads")
 
             str_1 = YouTube(url)
-            s=str_1.streams.get_highest_resolution()
+            s = str_1.streams.get_highest_resolution()
 
             title = str_1.title
             thumbnale = str_1.thumbnail_url
             '''  '''
-            total=s.filesize
-            video_size=total // 1048576
+            total = s.filesize
+            video_size = total // 1048576
 
-            print('size',total//1024,' KB')
-            print('size mb',total//1048576,'MB')
-
-
+            print('size', total // 1024, ' KB')
+            print('size mb', total // 1048576, 'MB')
 
             # Get all streams (progressive and audio)
-
-
 
             data = {
                 "title": title,
                 "thumbnale": thumbnale,
-                'video_size':video_size,
+                'video_size': video_size,
                 "internet": False,
                 'downlode': True,
-                'item':item,
-                'itemv':itemv,
+                'item': item,
+                'itemv': itemv,
                 'video': 'Get video'
 
             }
@@ -171,33 +178,32 @@ def single_video(request):
     return render(request, "download.html")
 
 
-
 def handleSignUp(request):
-    if request.method=="POST":
+    if request.method == "POST":
         # Get the post parameters
-        username=request.POST['username']
-        email=request.POST['email']
-        fname=request.POST['fname']
-        lname=request.POST['lname']
-        pass1=request.POST['pass1']
-        pass2=request.POST['pass2']
+        username = request.POST['username']
+        email = request.POST['email']
+        fname = request.POST['fname']
+        lname = request.POST['lname']
+        pass1 = request.POST['pass1']
+        pass2 = request.POST['pass2']
 
         # check for errorneous input
-        if len(username)>10:
+        if len(username) > 10:
             messages.error(request, " Your user name must be under 10 characters")
             return redirect('Home')
 
         if not username.isalnum():
             messages.error(request, " User name should only contain letters and numbers")
             return redirect('Home')
-        if (pass1!= pass2):
-             messages.error(request, " Passwords do not match")
-             return redirect('Home')
-        
+        if (pass1 != pass2):
+            messages.error(request, " Passwords do not match")
+            return redirect('Home')
+
         # Create the user
         myuser = User.objects.create_user(username, email, pass1)
-        myuser.first_name= fname
-        myuser.last_name= lname
+        myuser.first_name = fname
+        myuser.last_name = lname
         myuser.save()
         login(request, myuser)
         messages.success(request, " Your iCoder has been successfully created and Logged in")
@@ -206,13 +212,14 @@ def handleSignUp(request):
     else:
         return HttpResponse("404 - Not found")
 
-def handeLogin(request):
-    if request.method=="POST":
-        # Get the post parameters
-        loginusername=request.POST['loginusername']
-        loginpassword=request.POST['loginpassword']
 
-        user=authenticate(username= loginusername, password= loginpassword)
+def handeLogin(request):
+    if request.method == "POST":
+        # Get the post parameters
+        loginusername = request.POST['loginusername']
+        loginpassword = request.POST['loginpassword']
+
+        user = authenticate(username=loginusername, password=loginpassword)
         if user is not None:
             login(request, user)
             messages.success(request, "Successfully Logged In")
@@ -222,9 +229,9 @@ def handeLogin(request):
             return redirect("Home")
 
     return HttpResponse("404- Not found")
-   
 
     return HttpResponse("login")
+
 
 def handelLogout(request):
     logout(request)
