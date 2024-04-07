@@ -110,7 +110,7 @@ def download(request):
             data = {
                 "title": title,
                 "thumbnale": thumbnale,
-                'video_size': video_size,
+                'video_size': f'{video_size}MB', 
                 "internet": False,
                 'downlode': True,
                 'item': item,
@@ -188,13 +188,24 @@ def handleSignUp(request):
             return redirect('Home')
 
         # Create the user
-        myuser = User.objects.create_user(username, email, pass1)
-        myuser.first_name = fname
-        myuser.last_name = lname
-        myuser.save()
-        login(request, myuser)
-        messages.success(request, " Your iCoder has been successfully created and Logged in")
-        return redirect('Home')
+        
+
+       
+        try:
+            myuser = User.objects.create_user(username, email, pass1)
+            myuser.first_name = fname
+            myuser.last_name = lname
+            myuser.save()
+            login(request, myuser)
+            messages.success(request, " Your iCoder has been successfully created and Logged in")
+            return redirect('Home')
+        
+        except Exception as e:
+            messages.success(request, f" Your iCoder has been unsuccessfully createe Account  username exist '{username}' try different name")
+            return redirect('Home')
+
+
+
 
     else:
         return HttpResponse("404 - Not found")
