@@ -58,6 +58,7 @@
     border-color: orangered;
     height: 200px;
     margin-left: 0px;
+    max-width: 100%;
 }
 
 #emails {
