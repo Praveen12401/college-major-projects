@@ -1,6 +1,6 @@
 from django.http import HttpResponse, HttpResponseRedirect
 
-import openai, os
+import os,openai
 from django.shortcuts import render, redirect
 from pytube import YouTube
 from servise.models import Project
@@ -24,13 +24,13 @@ def about(request):
     return render(request, "about.html")
 
 
-def contact(request):
+def service(request):
     projectdata = Project.objects.all()
     data = {"projectdata": projectdata}
     for item in projectdata:
         print(item.project_file.path)
 
-    return render(request, "contact.html", data)
+    return render(request, "service.html", data)
 
 
 
@@ -83,6 +83,7 @@ def download(request):
     global url
     global save_path
     global str_1
+    global s
 
     if request.method == "POST":
         item = []
@@ -94,6 +95,7 @@ def download(request):
 
             str_1 = YouTube(url)
             s = str_1.streams.get_highest_resolution()
+            resu=s.resolution
 
             title = str_1.title
             thumbnale = str_1.thumbnail_url
@@ -110,7 +112,8 @@ def download(request):
             data = {
                 "title": title,
                 "thumbnale": thumbnale,
-                'video_size': f'{video_size}MB', 
+                'video_size': f'{video_size}MB',
+                'resu':resu, 
                 "internet": False,
                 'downlode': True,
                 'item': item,
@@ -140,7 +143,7 @@ def single_video(request):
         try:
             print('downloding now....')
 
-            str = str_1.streams.get_highest_resolution()
+            str = s
             file_path=str.download()
             print('file path',file_path)
         
