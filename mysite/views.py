@@ -1,12 +1,12 @@
 from django.http import HttpResponse, HttpResponseRedirect
 
-import os,openai
+import os
 from django.shortcuts import render, redirect
 from pytube import YouTube
 from servise.models import Project
 from .forms import Userform, LoginForm
 from django.contrib.auth import authenticate, login, logout
-from django.core.mail import send_mail
+# from django.core.mail import send_mail
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.http import FileResponse
@@ -35,43 +35,43 @@ def service(request):
 
 
 
-def chat_gpt(request):
-    return render(request, "chat_gpt.html")
+# def chat_gpt(request):
+#     return render(request, "chat_gpt.html")
 
 
-def chat_gpt_work(request):
-    # Set your OpenAI API key
-    api_key = "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"
-    # Initialize the OpenAI API client
-    openai.api_key = api_key
+# def chat_gpt_work(request):
+#     # Set your OpenAI API key
+#     api_key = "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"
+#     # Initialize the OpenAI API client
+#     openai.api_key = api_key
 
-    # Create a conversation with a system message
-    def self_chat(prompt):
+#     # Create a conversation with a system message
+#     def self_chat(prompt):
 
-        try:
+#         try:
 
-            # Create a conversation with a system message
-            conversation = [
-                {"role": "system", "content": "You are a helpful assistant."},
-                {"role": "user", "content": prompt},
-            ]
+#             # Create a conversation with a system message
+#             conversation = [
+#                 {"role": "system", "content": "You are a helpful assistant."},
+#                 {"role": "user", "content": prompt},
+#             ]
 
-            # Generate a response from GPT-3
-            response = openai.ChatCompletion.create(
-                model="gpt-3.5-turbo",
-                messages=conversation,
-            )
-            # Extract and return the assistant's reply
-            assistant_reply = response['choices'][0]['message']['content']
-            return assistant_reply
-        except Exception as e:
-            return f"Someting is wrong please check internet connection{e}"
+#             # Generate a response from GPT-3
+#             response = openai.ChatCompletion.create(
+#                 model="gpt-3.5-turbo",
+#                 messages=conversation,
+#             )
+#             # Extract and return the assistant's reply
+#             assistant_reply = response['choices'][0]['message']['content']
+#             return assistant_reply
+#         except Exception as e:
+#             return f"Someting is wrong please check internet connection{e}"
 
-    prompt = request.GET.get("prompt", "hi")
+#     prompt = request.GET.get("prompt", "hi")
 
-    assistant_reply = self_chat(prompt)
+#     assistant_reply = self_chat(prompt)
 
-    return render(request, "chat_gpt.html", {"reply": assistant_reply, "question": prompt})
+#     return render(request, "chat_gpt.html", {"reply": assistant_reply, "question": prompt})
 
 
 url = ''
@@ -113,7 +113,7 @@ def download(request):
                 "title": title,
                 "thumbnale": thumbnale,
                 'video_size': f'{video_size}MB',
-                'resu':resu, 
+                'result':result, 
                 "internet": False,
                 'downlode': True,
                 'item': item,

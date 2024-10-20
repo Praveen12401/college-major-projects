@@ -29,8 +29,8 @@ urlpatterns = [
     path("about/", views.about, name="about"),
     path("service/", views.service, name="service"),
     path("download/", views.download, name="download"),
-    path("chat-gpt/", views.chat_gpt, name="chat_gpt"),
-    path("chat_gpt_work/", views.chat_gpt_work, name="chat_gpt"),
+    # path("chat-gpt/", views.chat_gpt, name="chat_gpt"),
+    # path("chat_gpt_work/", views.chat_gpt_work, name="chat_gpt"),
     path("single_video/", views.single_video, name="video")
 
 ]+ static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

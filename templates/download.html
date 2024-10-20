@@ -63,18 +63,19 @@
 
         <!-- informaation of video design here -->
         {% if  internet %}
-        <label><h1 style="color:red;">please check internet coneection  or  </h1></label>
+        <label><h1 style="color:red;">please check internet coneection </h1></label>
         {% endif %}
-        <label style="color: rgb(243, 10, 10);font-size:30px;">title: Video size:{{video_size}}, {{resu}} </label> <h4>{{title}}</h4>
+        
         
        {% if thumbnale %}
+       <label style="color: rgb(243, 10, 10);font-size:30px;">title: Video size:{{video_size}}, {{result}} </label> <h4>{{title}}</h4>
        <div class="thumbnale1">
            <img class="thumbnale1" src='{{thumbnale}}' alt="thumbnale"></div>
          {% endif %}
          
            
        
-       <button style="color: red; margin-left: 70%; top: 200px; position: absolute;
+       <button style="color: red; margin-left: 70%; top: 190px; position: absolute;
        border: 1px solid rgb(63, 253, 63); font-size: large;" type="submit"> Get video</button>
 
   </form>
