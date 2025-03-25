@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image to PDF Converter</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin: 0;
+        background-color: #f9f9f9;
+      }
+      .container {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        background-color: white;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        font-size: 24px;
+        color: #333;
+      }
+      input[type="file"] {
+        margin: 20px 0;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
+      #download {
+        display: none;
+        margin-top: 20px;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+      }
+      #download:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Image to PDF Converter</h1>
+      <input type="file" id="imageInput" accept="image/*" />
+      <a id="download" href="#" download="converted.pdf">Download PDF</a>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script>
+      const imageInput = document.getElementById("imageInput");
+      const downloadLink = document.getElementById("download");
+
+      imageInput.addEventListener("change", async function () {
+        const file = this.files[0];
+
+        if (file) {
+          const reader = new FileReader();
+
+          reader.onload = async function (event) {
+            const img = new Image();
+            img.onload = async function () {
+              try {
+                // Create a jsPDF instance
+                const { jsPDF } = window.jspdf;
+                const pdf = new jsPDF();
+
+                // Get image dimensions
+                const imgWidth = img.width;
+                const imgHeight = img.height;
+                const pdfWidth = 210; // A4 page width in mm
+                const pdfHeight = (imgHeight * pdfWidth) / imgWidth;
+
+                // Add the image to the PDF
+                pdf.addImage(img, "JPEG", 0, 0, pdfWidth, pdfHeight);
+
+                // Extract file name without extension
+                const fileName = file.name.split(".").slice(0, -1).join(".");
+
+                // Force the PDF to download with .pdf extension
+                const pdfBlob = pdf.output("blob");
+                const blobUrl = URL.createObjectURL(pdfBlob);
+
+                // Update the download link
+                downloadLink.href = blobUrl;
+                downloadLink.download = `${fileName}.pdf`;
+                downloadLink.style.display = "inline-block";
+
+                // Clean up the Blob URL to prevent memory leaks
+                setTimeout(() => URL.revokeObjectURL(blobUrl), 500);
+              } catch (error) {
+                console.error(
+                  "An error occurred while generating the PDF:",
+                  error
+                );
+                alert("Failed to generate the PDF. Please try again.");
+              }
+            };
+            img.onerror = function () {
+              alert("Invalid image file. Please upload a valid image.");
+            };
+            img.src = event.target.result;
+          };
+
+          reader.onerror = function () {
+            alert("Failed to read the file. Please try again.");
+          };
+
+          reader.readAsDataURL(file);
+        } else {
+          alert("Please upload a valid image file.");
+        }
+      });
+    </script>
+  </body>
+</html>

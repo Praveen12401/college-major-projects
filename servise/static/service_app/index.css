@@ -1,0 +1,72 @@
+
+        body {
+          font-family: Arial, sans-serif;
+          margin: 0;
+          padding: 0;
+          background-color: #f9f9f9;
+        }
+        .header {
+          margin-top: 0px;
+          padding-top: 10px;
+          text-align: center;
+          padding: 20px;
+          background-color: #afecf7;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+          width: 100%;
+          height: 200px;
+        }
+        .header h1 {
+          margin: 0;
+          font-size: 2rem;
+        }
+        .header p {
+          margin: 5px 0 20px;
+          color: #555;
+        }
+        .tools {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsive columns */
+  gap: 16px; /* Space between grid items */
+  align-items: center; /* Align items vertically */
+  text-align: center; /* Center-align text inside each grid item */
+  padding: 20px; /* Padding around the container */
+  background-color: #f4f4f4; /* Optional: Background for better visibility */
+  border-radius: 8px; /* Optional: Rounded corners for the grid container */
+}
+
+        .tool-card {
+          
+           
+          background: #ffffff;
+          border-radius: 8px;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+          text-align: center;
+          padding: 20px;
+          transition: transform 0.2s;
+        }
+        .tool-card:hover {
+          transform: translateY(-5px);
+          background-color:seashell;
+          box-shadow: 2px 2px 4px skyblue;
+
+        }
+        .tool-card img {
+          width: 50px;
+          height: 50px;
+        }
+        .tool-card h3 {
+          margin: 15px 0 10px;
+          font-size: 1.2rem;
+        }
+        .tool-card p {
+          color: #666;
+          font-size: 0.9rem;
+          margin: 0;
+        }
+
+
+
+ 
+
+
+      

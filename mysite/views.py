@@ -1,6 +1,6 @@
 from django.http import HttpResponse, HttpResponseRedirect
 
-import os
+import os, yt_dlp
 from django.shortcuts import render, redirect
 from pytube import YouTube
 from servise.models import Project
@@ -34,9 +34,6 @@ def service(request):
 
 
 
-
-# def chat_gpt(request):
-#     return render(request, "chat_gpt.html")
 
 
 # def chat_gpt_work(request):
@@ -80,40 +77,69 @@ str_1 = ''
 
 
 def download(request):
-    global url
+    global url_input
     global save_path
-    global str_1
-    global s
+    global ydl_opts
+    global ydl
 
     if request.method == "POST":
         item = []
         itemv = []
 
         try:
-            url = request.POST.get("url_of_video", "default")
+            url_input = request.POST.get("url_of_video", "default")
             save_path = request.POST.get("path", "C:\\Users\\91638\\Downloads")
+            # Set download options for 720p
+            ydl_opts = {
+                'format': 'best',  # Download highest  resolution if available
+                'outtmpl': f'{save_path}/%(title)s.%(ext)s',  # Save file to the selected path
+            }
 
-            str_1 = YouTube(url)
-            s = str_1.streams.get_highest_resolution()
-            resu=s.resolution
+            try:
+                with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+                    # Extract video information before downloading
+                    info_dict = ydl.extract_info(url_input, download=False)  # Get metadata only
 
-            title = str_1.title
-            thumbnale = str_1.thumbnail_url
-            '''  '''
-            total = s.filesize
-            video_size = total // 1048576
+                    # Extract video details
+                    title = info_dict.get('title', 'Unknown Title')
+                    thumbnail_url = info_dict.get('thumbnail', 'No Thumbnail')
+                    file_size = info_dict.get('filesize', None)  # May be None if unknown
 
-            print('size', total // 1024, ' KB')
-            print('size mb', total // 1048576, 'MB')
+                    # Display video details
+                    print(f"Title: {title}")
+                    print(f"Thumbnail URL: {thumbnail_url}")
+                    if file_size:
+                        print(f"File Size: {file_size // 1048576} MB")
+                        file_size = file_size // 1048576
+                    else:
+                        print("File size: Unknown")
 
-            # Get all streams (progressive and audio)
-            all_streams = str_1.streams
-           
+
+
+            except Exception as e:
+                print(f"An error occurred: {e}")
+
+            # str_1 = YouTube(url)
+            # s = str_1.streams.get_highest_resolution()
+            # resu=s.resolution
+
+            # title = str_1.title
+            # thumbnale = str_1.thumbnail_url
+            # '''  '''
+            # total = s.filesize
+            # video_size = total // 1048576
+
+            # print('size', total // 1024, ' KB')
+            # print('size mb', total // 1048576, 'MB')
+
+            # # Get all streams (progressive and audio)
+            # all_streams = str_1.streams
+
             data = {
                 "title": title,
-                "thumbnale": thumbnale,
-                'video_size': f'{video_size}MB',
-                'result':result, 
+                "thumbnale": thumbnail_url,
+                'video_size': f'{file_size}MB',
+
                 "internet": False,
                 'downlode': True,
                 'item': item,
@@ -123,8 +149,8 @@ def download(request):
             }
             # str = str_1.streams.get_highest_resolution()
             # str.download(output_path=save_path)
-        except:
-            print("exception")
+        except Exception as e:
+            print("exception", e)
             data = {
                 "title": "Something wrong",
                 "thumbnale": False,
@@ -143,24 +169,24 @@ def single_video(request):
         try:
             print('downloding now....')
 
-            str = s
-            file_path=str.download()
-            print('file path',file_path)
-        
+            print('Downloading...')
+            # Download the video
+            ydl.download([url_input])
+            print("Download Completed12")
 
-            file_name = os.path.basename(file_path)
-            with open(file_path, 'rb') as file:
+            file_name = os.path.basename(save_path)
+            with open(save_path, 'rb') as file:
                 response = HttpResponse(file.read(), content_type='video/mp4')
                 response['Content-Disposition'] = f'attachment; filename="{file_name}"'
                 return response
-        except:
-            print("exception")
+        except Exception as e:
+            print("exception11", e)
             data = {
                 "title": "Something wrong",
-                "thumbnale": False,
-                "internet": True
+                # "thumbnale": False,
+                # "internet": True
             }
-            return render(request, "download.html", data)
+            return HttpResponseRedirect('/download/')
 
         return HttpResponseRedirect('/download/')
     print("last")
@@ -179,7 +205,7 @@ def handleSignUp(request):
         pass2 = request.POST['pass2']
 
         # check for errorneous input
-        if len(username) > 10:
+        if len(username) > 20:
             messages.error(request, " Your user name must be under 10 characters")
             return redirect('Home')
 
@@ -191,9 +217,7 @@ def handleSignUp(request):
             return redirect('Home')
 
         # Create the user
-        
 
-       
         try:
             myuser = User.objects.create_user(username, email, pass1)
             myuser.first_name = fname
@@ -202,10 +226,11 @@ def handleSignUp(request):
             login(request, myuser)
             messages.success(request, " Your iCoder has been successfully created and Logged in")
             return redirect('Home')
-        
+
         except Exception as e:
-            messages.success(request, f" Your iCoder has been unsuccessfully createe Account  username exist '{username}' try different name")
-            return redirect('Home')
+            messages.success(request,
+                             f" Your iCoder has been unsuccessfully createe Account  username already exist '{username}' try different name")
+            return redirect('handleSignUp')
 
 
 

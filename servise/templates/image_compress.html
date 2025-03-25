@@ -1,0 +1,64 @@
+{% extends "base_app.html" %}
+{% block title %} image compress {% endblock title %}
+{% block body %}
+
+{% load static %}
+<link
+rel="stylesheet"
+type="text/css"
+href="{% static '/service_app/footer.css' %}"
+/>
+<link
+rel="stylesheet"
+type="text/css"
+href="{% static 'service_app/index.css' %}"
+/>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0px;
+        }
+        form {
+            max-width: 400px;
+            margin: auto;
+            padding: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        #btn {
+            background-color: #36ce3b;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        #btn:hover{
+            background-color: #0afd12;
+        }
+
+        #imageInput {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: red;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-family: "Courier New", Courier, monospace;
+    cursor: pointer;
+  }
+    </style>
+</head>
+<body>
+    <h1>Image Compressor Auto Compress minimum size</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        
+        <button id="btn" type="submit" value="Compress & Download"> Compress & Download</button>
+    </form>
+</body>
+ {% endblock body %}
+</html>
