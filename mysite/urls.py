@@ -28,9 +28,8 @@ urlpatterns = [
     path("", views.index, name="Home"),
     path("about/", views.about, name="about"),
     path("service/", views.service, name="service"),
-    path("download/", views.download, name="download"),
     path("image_tool/", include('servise.urls')),
     
-    path("single_video/", views.single_video, name="video")
+
 
 ]+ static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
